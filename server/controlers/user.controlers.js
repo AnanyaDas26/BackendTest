@@ -6,8 +6,9 @@ import { ApiError } from "../utils/ApiError.js";
 export const registerUser = asyncHandler(async (req, res, next) => {
     console.log(`hit registerUser controller`);
     const { name, email, password } = req.body;
+    console.log(`name: ${name}, email: ${email}, password: ${password}`);
     if (!name || !email || !password) {
-        return next(new ApiError(400, "All fields are required"));
+        return new ApiError(400, "All fields are required");
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
